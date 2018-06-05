@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticatorService } from './../authenticator.service';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-index',
@@ -14,13 +16,25 @@ export class IndexComponent implements OnInit {
   ];
 
 
-  constructor() { }
+  constructor(private authenticator:AuthenticatorService) { }
 
   ngOnInit() {
   }
 
-  login () {
+  login ( f: NgForm) {
   		
+  		if(this.authenticator.authenticate(f.value.username, f.value.password)) {
+  			this.authenticator.setUserFlag(true);
+  		}
+
+  		if(this.authenticator.getUserFlag()) {
+  			console.log('Authenticated');
+  		}
+
+  		else {
+  			console.log('Failed!');
+  		}
+
   }
 
 }
