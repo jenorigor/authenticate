@@ -1,0 +1,30 @@
+<section class="container-fluid">
+
+	<div class="row">
+
+		<div class="container-fluid col-md-4">
+				<form>
+					
+					<div class="form-group">
+						<h3 class="text-center">Simple Login Form </h3>
+					</div>
+
+					<div class="form-group">
+						<input [(ngModel)] = "loginparams.username" type="text" class="form-control" placeholder="Username / Email" [ngModelOptions]="{standalone: true}" />
+					</div>
+
+					<div class="form-group">
+						<input [(ngModel)] = "loginparams.password" type="password" class="form-control" placeholder="Password" [ngModelOptions]="{standalone: true}" />
+		 			</div>
+
+		 			<div class="form-group">
+		 				<input type="submit" class="btn btn-primary" value="{{btnvalue}}" (click) = "login()"/>
+		 			</div>
+
+				</form>
+			
+		</div>
+
+	</div>
+
+</section>
