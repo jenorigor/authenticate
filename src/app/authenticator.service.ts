@@ -19,14 +19,11 @@ export class AuthenticatorService {
 
   authenticate ( username : string, password : string) {
   	
-  	return this.httpClient.post<any>(this.url+'/api/authenticate', { username: username, password: password })
+  	return this.httpClient.post<any>(this.url+'/api/login', { username: username, password: password })
             .pipe(map((res:any) => {
-                // login successful if there's a jwt token in the response
-                if (res && res.token) {
-                    // store username and jwt token in local storage to keep user logged in between page refreshes
-                    //localStorage.setItem('currentUser', JSON.stringify({ username, token: res.token }));
-                }
-            }));
+                return res;
+            })); 
+
 
   }
 
