@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -7,20 +8,17 @@ export class AuthenticatorService {
   
   private userFlag : boolean;
 
-  constructor() { 
+  private url : string = 'http://localhost/sample.json';
+
+  constructor(private httpClient: HttpClient) { 
   	this.userFlag = false;
   }
 
+
   authenticate ( username : string, password : string) {
   	
-  	if(username == 'admin' && password == 'admin') {
-  		return true;
-  	}
-
-  	else {
-  		return false;
-  	}
   	
+
   }
 
   setUserFlag ( flag : boolean ) {

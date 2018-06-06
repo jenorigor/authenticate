@@ -1,3 +1,3 @@
 # Authenticate
 
-This project is an authentication application built on Angular 5 and Laravel PHP.
+This is a frontend code for a login application built on Angular 6. Works with https://github.com/jenorigor/token-auth

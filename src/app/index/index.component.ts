@@ -23,6 +23,8 @@ export class IndexComponent implements OnInit {
 
   login ( f: NgForm) {
   		
+  		console.log(this.authenticator.authenticate(f.value.username, f.value.password));
+  		
   		if(this.authenticator.authenticate(f.value.username, f.value.password)) {
   			this.authenticator.setUserFlag(true);
   		}
