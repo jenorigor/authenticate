@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticatorService } from './../authenticator.service';
 import {NgForm} from '@angular/forms';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-index',
@@ -11,6 +12,7 @@ export class IndexComponent implements OnInit {
   
   btnvalue : string = "Login";
   btndisabled : boolean = true;
+  flag : boolean = false;
 
   loginparams = [
   ];
@@ -23,9 +25,17 @@ export class IndexComponent implements OnInit {
 
   login ( f: NgForm) {
   		
-  		console.log(this.authenticator.authenticate(f.value.username, f.value.password));
-  		
-  		if(this.authenticator.authenticate(f.value.username, f.value.password)) {
+  		this.authenticator.authenticate(f.value.username, f.value.password)
+            .pipe(first())
+            .subscribe(
+                data => {
+                    this.flag = true;
+                },
+                error => {
+                	this.flag = false;
+                });
+
+  		if(this.flag) {
   			this.authenticator.setUserFlag(true);
   		}
 
