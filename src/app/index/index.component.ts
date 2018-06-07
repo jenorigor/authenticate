@@ -14,6 +14,7 @@ export class IndexComponent implements OnInit {
   btndisabled : boolean = true;
   flag : boolean = false;
   error : boolean = false;
+  serverdown : boolean = false;
 
   loginparams = [
   ];
@@ -30,6 +31,9 @@ export class IndexComponent implements OnInit {
 
   login ( f: NgForm) {
   		
+      this.error = false;
+      this.serverdown = false;
+
   		this.authenticator.authenticate(f.value.username, f.value.password)
             .subscribe(
                 data => {
@@ -40,10 +44,18 @@ export class IndexComponent implements OnInit {
 
                 	else {
                 		 this.error = true;
+                     f.resetForm();
                 	}
                 },
                 error => {
-                	   this.error = true;
+                    f.resetForm();
+                    if(error.status != 200) {
+                      this.serverdown = true;
+                    }
+
+                    else {
+                      this.error = true;
+                    }
                 }); 
 
 

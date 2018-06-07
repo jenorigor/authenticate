@@ -13,7 +13,7 @@ export class ProfileComponent implements OnInit {
   btnvalue : string = "Logout";
   profilestring : string ;
   username : string;
-
+  
   constructor(private authenticator:AuthenticatorService, private router: Router, private profileservice : ProfileService ) { }
 
   ngOnInit() {
