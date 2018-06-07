@@ -21,10 +21,16 @@ export class AuthenticatorService {
   	
   	return this.httpClient.post<any>(this.url+'/api/login', { username: username, password: password })
             .pipe(map((res:any) => {
+                
                 return res;
             })); 
 
 
+  }
+
+  logout() {
+    // remove user from local storage to log user out
+    localStorage.removeItem('loggedinUser');
   }
 
   setUserFlag ( flag : boolean ) {

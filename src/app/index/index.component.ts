@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticatorService } from './../authenticator.service';
 import {NgForm} from '@angular/forms';
+import { Routes, Router,RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-index',
@@ -12,14 +13,19 @@ export class IndexComponent implements OnInit {
   btnvalue : string = "Login";
   btndisabled : boolean = true;
   flag : boolean = false;
+  error : boolean = false;
 
   loginparams = [
   ];
 
 
-  constructor(private authenticator:AuthenticatorService) { }
+  constructor(private authenticator:AuthenticatorService, private router: Router ) { }
 
   ngOnInit() {
+
+    if(localStorage.getItem("loggedinUser") !== null) {
+      this.router.navigate(['profile']);
+    }
   }
 
   login ( f: NgForm) {
@@ -27,19 +33,18 @@ export class IndexComponent implements OnInit {
   		this.authenticator.authenticate(f.value.username, f.value.password)
             .subscribe(
                 data => {
-                	if(data.success == true) {
-                		console.log('Authenticated!');
+                	if(data.token && data.success == true) {
+                		 localStorage.setItem('loggedinUser', JSON.stringify({ token: data.token }));
+                     this.router.navigate(['profile']);
                 	}
 
                 	else {
-                		console.log('Failed!');
+                		 this.error = true;
                 	}
                 },
                 error => {
-                	console.log('Failed!');
+                	   this.error = true;
                 }); 
-
-
 
 
   }
